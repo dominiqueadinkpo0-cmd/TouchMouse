@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TouchMouse</string>
+    <string name="accessibility_desc">TouchMouse permet de contrôler Android avec une souris virtuelle quand le tactile est cassé. Il injecte les clics/scrolls et permet la dictée Whisper Flow. Aucune donnée n\'est collectée.</string>
+    <string name="overlay_title">TouchMouse - Souris virtuelle</string>
+</resources>
