@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.first
 
 /**
  * Service cœur : injecte gestes + gère texte Whisper Flow
@@ -41,7 +42,7 @@ class TouchMouseService : AccessibilityService() {
         // On laisse MainActivity/OverlayService le déclencher
         scope.launch {
             try {
-                val prefs = prefsFlow().let { kotlinx.coroutines.flow.first(it) }
+                val prefs = prefsFlow().first()
                 volumeControlEnabled = prefs.volumeControl
                 if (prefs.overlayEnabled) tryShowOverlayIfPermitted()
             } catch (e: Exception) {
@@ -89,7 +90,7 @@ class TouchMouseService : AccessibilityService() {
             if (System.currentTimeMillis() - lastVolumeToast > 5000) {
                 lastVolumeToast = System.currentTimeMillis()
                 scope.launch {
-                    try { volumeControlEnabled = kotlinx.coroutines.flow.first(prefsFlow()).volumeControl }
+                    try { volumeControlEnabled = prefsFlow().first().volumeControl }
                     catch (_: Exception) {}
                 }
             }

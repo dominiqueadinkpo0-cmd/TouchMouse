@@ -22,7 +22,7 @@ class BootReceiver : BroadcastReceiver() {
             a == "android.intent.action.QUICKBOOT_POWERON") {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val prefs = context.prefsFlow().let { first(it) }
+                    val prefs = context.prefsFlow().first()
                     // Ne relance que si l'utilisateur avait activé l'overlay
                     if (prefs.overlayEnabled) {
                         val i = Intent(context, OverlayService::class.java)

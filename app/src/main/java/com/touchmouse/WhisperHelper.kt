@@ -133,10 +133,9 @@ class WhisperHelper(
         }
         scope.launch(Dispatchers.IO){
             try{
-                val prefs = ctx.dataStore.data.let { kotlinx.coroutines.flow.first(it).let { map -> map } } // dummy to get apiKey already passed? We'll capture via closure
                 // On a déjà apiKey en param, mais après stop on l'a perdu ; on récupère depuis datastore
-                val apiKey = ctx.prefsFlow().let { kotlinx.coroutines.flow.first(it).whisperApiKey }
-                val lang = ctx.prefsFlow().let { kotlinx.coroutines.flow.first(it).whisperLanguage }
+                val apiKey = ctx.prefsFlow().first().whisperApiKey
+                val lang = ctx.prefsFlow().first().whisperLanguage
                 val text = transcribeWhisperAPI(f, apiKey, lang)
                 withContext(Dispatchers.Main){
                     if(text.isNotBlank()) onResult(text)
